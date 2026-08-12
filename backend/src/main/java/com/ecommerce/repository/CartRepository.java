@@ -20,4 +20,7 @@ public interface CartRepository extends JpaRepository<CartItem, Integer> {
     // Total number of units in the cart (used for the navbar badge).
     @Query("select coalesce(sum(c.quantity), 0) from CartItem c where c.user.id = :userId")
     Integer sumQuantityByUser_Id(@Param("userId") Integer userId);
+
+    // Removes all cart entries referencing a product before the product itself is deleted.
+    void deleteByProduct_Id(Integer productId);
 }
